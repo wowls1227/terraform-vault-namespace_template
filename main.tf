@@ -83,6 +83,6 @@ path "${vault_namespace.child_namespace.path}/sys/mounts" {
 path "${vault_namespace.child_namespace.path}/+/sys/mounts" {
   capabilities = ["read"]
 }
-EOF
+
 EOT
 }
