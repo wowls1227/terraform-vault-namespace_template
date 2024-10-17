@@ -35,6 +35,7 @@ resource "vault_identity_entity_policies" "policies" {
 }
 
 resource "vault_identity_entity_alias" "entity_alias" {
+  for_each = local.admins
   name           = vault_identity_entity.namespace_admin[each.key].name
   mount_accessor = data.vault_auth_backends.Active_Directory.accessors[0]
   canonical_id   = vault_identity_entity.namespace_admin[each.key].id
