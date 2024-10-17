@@ -1,5 +1,7 @@
 locals {
-  admins = split(",", trimspace(var.entity_name))
+  admins = {
+    for k,v in split(",", trimspace(var.entity_name)) : k => v
+  }
 }
 
 
