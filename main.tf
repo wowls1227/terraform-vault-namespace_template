@@ -7,7 +7,7 @@ locals {
 
 ## VAULT
 data "vault_auth_backends" "Active_Directory" {
-  type = "oidc"
+  type = "mwoidc"
 }
 
 resource "vault_namespace" "child_namespace" {
@@ -45,9 +45,10 @@ resource "vault_policy" "namespace_admin_policy" {
   name   = "${var.namespace_path}-policy"
   policy = <<EOT
 # Manage namespaces
-path "sys/namespaces" {
-  capabilities = ["read","list"]
+path "sys/namespaces/*" {
+   capabilities = ["list"]
 }
+
 path "${vault_namespace.child_namespace.path}/*" {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
@@ -86,6 +87,5 @@ path "${vault_namespace.child_namespace.path}/sys/mounts" {
 path "${vault_namespace.child_namespace.path}/+/sys/mounts" {
   capabilities = ["read"]
 }
-
 EOT
 }
