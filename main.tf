@@ -42,9 +42,12 @@ resource "vault_identity_entity_alias" "entity_alias" {
 }
 
 resource "vault_policy" "namespace_admin_policy" {
-  name   = "${var.entity_name}-policy"
+  name   = "${var.namespace_path}-policy"
   policy = <<EOT
 # Manage namespaces
+path "sys/namespaces" {
+  capabilities = ["read","list"]
+}
 path "${vault_namespace.child_namespace.path}/*" {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
