@@ -24,3 +24,7 @@ variable "entity_name" {
   # default = "admin-#123"
   description = "AD와 연동된 사용자 이메일 입력, vault에 client 사전생성용도"
 }
+
+
+variable "org_name" {}
+variable "org_id" {}
